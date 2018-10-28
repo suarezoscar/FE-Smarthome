@@ -9,7 +9,27 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <div class="temp-container">
-    <h1>{{thermostat?.currentTemp}}º</h1>
-  </div>
+  <ion-row align-items-center justify-content-center text-center>
+    <ion-col *ngIf="thermostat" col-10>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-icon name="thermometer" class="icon-size"></ion-icon>
+          <span>Temperatura actual</span>
+        </ion-card-header>
+        <ion-card-content>
+          <span>{{thermostat.currentTemp}}º</span>
+          <ion-icon *ngIf="thermostat.currentTemp >= 28" class="icon-size" name="flame"></ion-icon>
+          <ion-icon *ngIf="thermostat.currentTemp <= 20" class="icon-size" name="snow"></ion-icon>
+          <ion-icon *ngIf="thermostat.currentTemp > 20 && thermostat.currentTemp < 28" name="happy"
+                    class="icon-size"></ion-icon>
+          <hr>
+          <h2>La calefacción esta {{thermostat.isActive ? 'encendida' : 'apagada'}}</h2>
+          <hr>
+          <h2>La temperatura programada es {{thermostat.triggerTemp}}º</h2>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-col>
+  </ion-row>
 </ion-content>

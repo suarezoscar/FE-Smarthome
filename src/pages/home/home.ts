@@ -10,7 +10,7 @@ import {Ithermostat} from "../../config/thermostat.interface";
 export class HomePage implements OnInit {
 
   public thermostat: Ithermostat;
-  private basePath: string = 'http://smart-home-be.herokuapp.com/';
+  private basePath: string = 'http://178.62.62.5:3000/';
 
   constructor(public navCtrl: NavController, private http: HttpClient) {
   }
@@ -20,10 +20,12 @@ export class HomePage implements OnInit {
   }
 
   fetchAllThermostatInfo(event?) {
-    this.http.get(this.basePath).subscribe(res => {
-      console.log(res);
-      this.thermostat = <Ithermostat>res;
-      if (event) event.complete();
+    this.http.get(this.basePath).subscribe({
+      next: res => this.thermostat = <Ithermostat>res,
+      error: err => console.error(err),
+      complete: () => {
+        if (event) event.complete()
+      }
     });
   }
 
